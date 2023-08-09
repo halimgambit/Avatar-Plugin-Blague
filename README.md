@@ -1,2 +1,2 @@
 # Avatar-Plugin-Blague
- AVATAR eaconte des blagues aléatoire
+ AVATAR raconte des blagues aléatoire
