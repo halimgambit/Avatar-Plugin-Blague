@@ -17,8 +17,8 @@ function blague (data, client) {
 	});
     })
 	.catch(function (err) {
-	info('Je n\'arrive pas accéder au site.', err);
-	Avatar.speak('Je n\'arrive pas accéder au site.', err, data.client, () => { 
+	info('Je n\'arrive pas accéder au site.' + err);
+	Avatar.speak('Je n\'arrive pas accéder au site.' + err, data.client, () => { 
 	Avatar.Speech.end(data.client);
 	});
 	});
