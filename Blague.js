@@ -9,16 +9,21 @@ exports.action = function(data, callback){
 function blague (data, client) {
 
 	fetch('https://blague.xyz/api/joke/random')
-    .then(response => response.json())
-    .then(response2 => {
-    info(response2.joke.question + response2.joke.answer)
-	Avatar.speak(`${response2.joke.question}${' '}${response2.joke.answer}`, data.client, () => { 
+	.then(response => {
+	if (response.status !== 200) {
+	throw new Error(`La connexion à échoué, code erreur: ${response.status}`);
+	}
+	return response.json();
+	})
+	.then(response2 => {
+        info(`${response2.joke.question}! ${response2.joke.answer}!`);
+	Avatar.speak(`${response2.joke.question} ! ${response2.joke.answer}!`, data.client, () => { 
 	Avatar.Speech.end(data.client);
 	});
     })
-	.catch(function (err) {
-	info('Je n\'arrive pas accéder au site.' + err);
-	Avatar.speak('Je n\'arrive pas accéder au site.' + err, data.client, () => { 
+	.catch(err => {
+	info(`Je n'arrive pas accéder au site de blague, ${err.message}`);
+	Avatar.speak(`Je n'arrive pas accéder au site de blague, ${err}`, data.client, () => { 
 	Avatar.Speech.end(data.client);
 	});
 	});
